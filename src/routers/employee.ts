@@ -3,12 +3,13 @@ import {
     getAllEmployees,
     createEmployee,
     updateEmployee,
-    deleteEmployee
-
+    deleteEmployee,
+    getEmployeeById
   } from '../controllers/employee';
 const router = Router();
 
 router.get('/all', getAllEmployees);
+router.get('/:id', getEmployeeById);
 router.post('/create', createEmployee);
 router.put('/update/:id', updateEmployee);
 router.delete('/delete/:id', deleteEmployee);

@@ -1,9 +1,6 @@
 import { Request, Response } from 'express';
 import { mockdata } from '../mockdata';
 
-export const getAllEmployees = (req: Request, res: Response): void => {
-  res.status(200).send(mockdata.employees);
-};
 
 export const createEmployee = (req: Request, res: Response): void => {
     const { idCard, firstName, lastName, dateOfBirth, address, city, education, companyId, contact, contract } = req.body;
@@ -30,6 +27,24 @@ export const createEmployee = (req: Request, res: Response): void => {
         message: 'Employee successfully created',
         empleado: newEmpleado
     });
+};
+
+
+export const getAllEmployees = (req: Request, res: Response): void => {
+  res.status(200).send(mockdata.employees);
+};
+
+
+export const getEmployeeById = (req: Request, res: Response): void => {
+    const id = parseInt(req.params.id);
+
+    const empleado = mockdata.employees.find(emp => emp.id === id);
+
+    if (!empleado) {
+        res.status(404).send({ message: 'Empleado no encontrado' });
+        return;
+    }
+    res.status(200).send(empleado);
 };
 
 

@@ -9,7 +9,7 @@ import {
 const router = Router();
 
 router.get('/all', getAllEmployees);
-router.post('/', createEmployee);
+router.post('/create', createEmployee);
 router.put('/update/:id', updateEmployee);
 router.delete('/delete/:id', deleteEmployee);
 

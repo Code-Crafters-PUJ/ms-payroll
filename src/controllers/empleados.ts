@@ -27,7 +27,7 @@ export const createEmployee = (req: Request, res: Response): void => {
     mockdata.employees.push(newEmpleado);
 
     res.status(201).send({
-        message: 'Empleado creado exitosamente',
+        message: 'Employee successfully created',
         empleado: newEmpleado
     });
 };
@@ -39,7 +39,7 @@ export const updateEmployee = (req: Request, res: Response): void => {
   const index = mockdata.employees.findIndex(emp => emp.id === id);
 
   if (index === -1) {
-      res.status(404).send({ message: 'Empleado no encontrado' });
+      res.status(404).send({ message: 'Employee not found' });
       return;
   }
 
@@ -57,7 +57,7 @@ export const updateEmployee = (req: Request, res: Response): void => {
 
 
   res.status(200).send({
-      message: 'Empleado actualizado exitosamente',
+      message: 'Successfully updated employee',
       empleado: empleado
   });
 };
@@ -69,12 +69,12 @@ export const deleteEmployee = (req: Request, res: Response): void => {
   const index = mockdata.employees.findIndex(emp => emp.id === id);
 
   if (index === -1) {
-      res.status(404).send({ message: 'Empleado no encontrado' });
+      res.status(404).send({ message: 'Employee not found' });
       return;
   }
 
   mockdata.employees.splice(index, 1);
   res.status(200).send({
-      message: 'Empleado eliminado exitosamente'
+      message: 'Employee successfully deleted'
   });
 };

@@ -61,3 +61,20 @@ export const updateEmployee = (req: Request, res: Response): void => {
       empleado: empleado
   });
 };
+
+export const deleteEmployee = (req: Request, res: Response): void => {
+
+  const id = parseInt(req.params.id);
+
+  const index = mockdata.employees.findIndex(emp => emp.id === id);
+
+  if (index === -1) {
+      res.status(404).send({ message: 'Empleado no encontrado' });
+      return;
+  }
+
+  mockdata.employees.splice(index, 1);
+  res.status(200).send({
+      message: 'Empleado eliminado exitosamente'
+  });
+};

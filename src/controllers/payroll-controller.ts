@@ -1,10 +1,8 @@
 import { Request, Response } from 'express';
 import { mockDataPayroll } from '../mockDataPayroll';
 
-// Inicializando el arreglo de nóminas con el mockDataPayroll inicial
 let payrolls = [mockDataPayroll];
 
-// Función para generar el próximo ID de nómina
 function getNextPayrollId() {
     const lastPayroll = payrolls[payrolls.length - 1];
     const lastId = lastPayroll.id;

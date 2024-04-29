@@ -2,8 +2,11 @@ import { Request, Response } from 'express';
 import { mockDataEmployee } from '../mockDataEmployee';
 
 
+function formatDate(date: Date): string {
+    return date.toISOString().split('T')[0];
+}
 export const createEmployee = (req: Request, res: Response): void => {
-    const { idCard, firstName, lastName, dateOfBirth, address, city, education, companyId, contact, contract } = req.body;
+    const { idCard, firstName, lastName, dateOfBirth, address, city, education, companyId, contact, contract, gender, typeCard, maritalStatus, phoneNumber } = req.body;
 
     const newId = mockDataEmployee.employees[mockDataEmployee.employees.length - 1].id + 1;
 
@@ -12,9 +15,13 @@ export const createEmployee = (req: Request, res: Response): void => {
         idCard,
         firstName,
         lastName,
-        dateOfBirth: new Date(dateOfBirth),
+        dateOfBirth: new Date(dateOfBirth), 
+        gender,
+        typeCard,
         address,
         city,
+        maritalStatus,
+        phoneNumber,
         education,
         companyId,
         contact,
@@ -29,11 +36,9 @@ export const createEmployee = (req: Request, res: Response): void => {
     });
 };
 
-
 export const getAllEmployees = (req: Request, res: Response): void => {
-  res.status(200).send(mockDataEmployee.employees);
+    res.status(200).send(mockDataEmployee.employees);
 };
-
 
 export const getEmployeeById = (req: Request, res: Response): void => {
     const id = parseInt(req.params.id);
@@ -47,49 +52,48 @@ export const getEmployeeById = (req: Request, res: Response): void => {
     res.status(200).send(empleado);
 };
 
-
 export const updateEmployee = (req: Request, res: Response): void => {
+    const id = parseInt(req.params.id);
+    const index = mockDataEmployee.employees.findIndex(emp => emp.id === id);
 
-  const id = parseInt(req.params.id);
-  const index = mockDataEmployee.employees.findIndex(emp => emp.id === id);
+    if (index === -1) {
+        res.status(404).send({ message: 'Employee not found' });
+        return;
+    }
 
-  if (index === -1) {
-      res.status(404).send({ message: 'Employee not found' });
-      return;
-  }
+    const empleado = mockDataEmployee.employees[index];
+    empleado.idCard = req.body.idCard ?? empleado.idCard;
+    empleado.firstName = req.body.firstName ?? empleado.firstName;
+    empleado.lastName = req.body.lastName ?? empleado.lastName;
+    empleado.dateOfBirth = req.body.dateOfBirth ? new Date(req.body.dateOfBirth) : empleado.dateOfBirth; 
+    empleado.typeCard = req.body.typeCard ?? empleado.typeCard;
+    empleado.address = req.body.address ?? empleado.address;
+    empleado.city = req.body.city ?? empleado.city;
+    empleado.maritalStatus = req.body.maritalStatus ?? empleado.maritalStatus;
+    empleado.phoneNumber = req.body.phoneNumber ?? empleado.phoneNumber;
+    empleado.education = req.body.education ?? empleado.education;
+    empleado.companyId = req.body.companyId ?? empleado.companyId;
+    empleado.contact = req.body.contact ?? empleado.contact;
+    empleado.contract = req.body.contract ?? empleado.contract;
 
-  const empleado = mockDataEmployee.employees[index];
-  empleado.idCard = req.body.idCard ?? empleado.idCard;
-  empleado.firstName = req.body.firstName ?? empleado.firstName;
-  empleado.lastName = req.body.lastName ?? empleado.lastName;
-  empleado.dateOfBirth = req.body.dateOfBirth ? new Date(req.body.dateOfBirth) : empleado.dateOfBirth;
-  empleado.address = req.body.address ?? empleado.address;
-  empleado.city = req.body.city ?? empleado.city;
-  empleado.education = req.body.education ?? empleado.education;
-  empleado.companyId = req.body.companyId ?? empleado.companyId;
-  empleado.contact = req.body.contact ?? empleado.contact;
-  empleado.contract = req.body.contract ?? empleado.contract;
-
-
-  res.status(200).send({
-      message: 'Successfully updated employee',
-      empleado: empleado
-  });
+    res.status(200).send({
+        message: 'Successfully updated employee',
+        empleado: empleado
+    });
 };
 
 export const deleteEmployee = (req: Request, res: Response): void => {
+    const id = parseInt(req.params.id);
 
-  const id = parseInt(req.params.id);
+    const index = mockDataEmployee.employees.findIndex(emp => emp.id === id);
 
-  const index = mockDataEmployee.employees.findIndex(emp => emp.id === id);
+    if (index === -1) {
+        res.status(404).send({ message: 'Employee not found' });
+        return;
+    }
 
-  if (index === -1) {
-      res.status(404).send({ message: 'Employee not found' });
-      return;
-  }
-
-  mockDataEmployee.employees.splice(index, 1);
-  res.status(200).send({
-      message: 'Employee successfully deleted'
-  });
+    mockDataEmployee.employees.splice(index, 1);
+    res.status(200).send({
+        message: 'Employee successfully deleted'
+    });
 };

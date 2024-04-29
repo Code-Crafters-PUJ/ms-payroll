@@ -1,45 +1,50 @@
 export const mockDataEmployee = {
-  employees: [
-      {
-          id: 1,
-          idCard: '123456789',
-          firstName: 'Juan',
-          lastName: 'Pérez',
-          dateOfBirth: new Date('1990-05-15'),
-          address: 'Calle 123, Ciudad XYZ',
-          city: 'Ciudad XYZ',
-          education: {
-              id: 1,
-              name: 'Universidad ABC',
-              level: 'Licenciatura',
-              endDate: new Date('2012-12-31'),
-              title: 'Licenciado en Ingeniería',
+  "employees": [
+    {
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Doe",
+      "dateOfBirth": new Date("1985-05-15"),
+      "gender": "Male",
+      "typeCard": "DNI",
+      "idCard": "12345678",
+      "city": "New York",
+      "address": "123 Main St",
+      "maritalStatus": "Married",
+      "phoneNumber": "555-1234",
+      "education": {
+        "id": 1,
+        "level": "University",
+        "title": "BSc Computer Science",
+        "endDate": new Date("2007-06-01"),
+        "nameInstitution": "MIT"
+      },
+      "companyId": 101,
+      "contact": {
+        "id": 1,
+        "name": "Jane Doe",
+        "phone": "555-5678",
+        "relationship": "Spouse"
+      },
+      "contract": [
+        {
+          "id": 1,
+          "contractType": {
+            "id": 1,
+            "type": "Permanent"
           },
-          companyId: 101,
-          contact: {
-              id: 1,
-              name: 'María Pérez',
-              phone: '555-1234',
-              relationship: 'Hermana',
-          },
-          contract: [
-              {
-                  id: 1,
-                  number: 'C-001',
-                  startDate: new Date('2023-01-01'),
-                  endDate: new Date('2023-12-31'),
-                  contractType: {
-                      id: 1,
-                      type: 'Tiempo completo',
-                  },
-                  baseSalary: 2000,
-                  transportAllowance: true,
-                  healthAndPensions: true,
-                  severancePay: true,
-                  serviceBonus: true,
-                  totalSalary: 2500,
-              },
-          ],
-      }
+          "startDate": new Date("2008-08-01"),
+          "endDate": new Date("2023-08-01"),
+          "duration": "15 years",
+          "position": "Senior Developer",
+          "baseSalary": 80000,
+          "transportAllowance": true,
+          "healthAndPensions": true,
+          "severancePay": true,
+          "serviceBonus": true,
+          "totalSalary": 120000
+        }
+      ]
+    }
   ]
 }

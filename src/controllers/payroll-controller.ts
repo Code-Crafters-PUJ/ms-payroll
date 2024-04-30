@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { mockDataPayroll } from '../mockDataPayroll';
 
-let payrolls = [mockDataPayroll];
+let payrolls = mockDataPayroll.payrolls;
 
 function getNextPayrollId() {
     const lastPayroll = payrolls[payrolls.length - 1];
@@ -68,6 +68,24 @@ export const updatePayroll = (req: Request, res: Response): void => {
         res.status(404).send({ message: 'Payroll not found' });
     }
 };
+
+export const consolidatePayroll = (req: Request, res: Response): void => {
+    const payroll = payrolls.find(p => p.id === req.params.id);
+    if (payroll) {
+        if (payroll.state === "active") {
+            payroll.state = "consolidated";
+            res.status(200).send({
+                message: 'Payroll successfully consolidated',
+                payroll
+            });
+        } else {
+            res.status(400).send({ message: 'Payroll is not active and cannot be consolidated' });
+        }
+    } else {
+        res.status(404).send({ message: 'Payroll not found' });
+    }
+};
+
 
 export const deletePayroll = (req: Request, res: Response): void => {
     const index = payrolls.findIndex(p => p.id === req.params.id);

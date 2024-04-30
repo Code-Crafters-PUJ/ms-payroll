@@ -10,10 +10,16 @@ import { validateSalesOrAdminRole, validateSalesRole } from '../middlewares/vali
 
 const router = Router();
 
-router.get('/all', [validateSalesOrAdminRole], getAllPayrolls);
+/* router.get('/all', [validateSalesOrAdminRole], getAllPayrolls);
 router.get('/:id', [validateSalesRole], getPayrollById);
 router.post('/create', [validateSalesOrAdminRole], createPayroll);
 router.put('/update/:id', [validateSalesOrAdminRole], updatePayroll);
-router.delete('/delete/:id', [validateSalesRole], deletePayroll);
+router.delete('/delete/:id', [validateSalesRole], deletePayroll); */
+
+router.get('/all',  getAllPayrolls);
+router.get('/:id',getPayrollById);
+router.post('/create', createPayroll);
+router.put('/update/:id',updatePayroll);
+router.delete('/delete/:id', deletePayroll);
 
 export {router}

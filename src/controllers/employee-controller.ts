@@ -41,6 +41,16 @@ export const createEmployee = (req: Request, res: Response) => {
     });
   }
 
+  const existingEmployee = mockDataEmployee.employees.find(
+    (employee) => employee.idCard === idCard
+  );
+
+  if (existingEmployee) {
+    return res.status(409).send({
+      message: "Error: Employee already exists",
+    });
+  }
+
   const newId = mockDataEmployee.employees[mockDataEmployee.employees.length - 1].id + 1;
 
   const newEmpleado: Employee = {
@@ -75,6 +85,7 @@ export const createEmployee = (req: Request, res: Response) => {
     empleado: newEmpleado,
   });
 };
+
 
 export const getAllEmployees = (req: Request, res: Response): void => {
   res.status(200).send(mockDataEmployee.employees);

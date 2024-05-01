@@ -82,7 +82,6 @@ export const createEmployee = (req: Request, res: Response) => {
 
   res.status(201).send({
     message: "Employee successfully created",
-    empleado: newEmpleado,
   });
 };
 

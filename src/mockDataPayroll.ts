@@ -2,7 +2,7 @@ export const mockDataPayroll = {
   "payrolls": [
     {
       "id": "PR12345",
-      "state": "active",
+      "state": "En espera",
       "liquidationType": "Mensual",
       "payrollName": "Nomina para POs",
       "month": "Octubre (I)",

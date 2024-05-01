@@ -16,11 +16,11 @@ export const createPayroll = (req: Request, res: Response): void => {
 
     const newPayroll = {
         id: newId,
-        state: "active",
-        liquidationType: "monthly",
+        state: "En espera",
+        liquidationType: "Mensual",
         payrollName,
         month,
-        year,
+        year: new Date().getFullYear(),
         employees: Array.isArray(employees) ? employees : [],  
         totalIncome,
         totalDeductions,

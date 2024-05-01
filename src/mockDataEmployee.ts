@@ -7,7 +7,7 @@ export const mockDataEmployee: { employees: Employee[] } = {
       firstName: "Juana",
       lastName: "Martinez",
       dateOfBirth: new Date("1985-05-15"),
-      gender: "Masculino",
+      gender: "masculino",
       typeCard: "Cédula de ciudadanía",
       idCard: "12345678",
       city: "Bogotá D. C.",

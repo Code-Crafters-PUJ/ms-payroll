@@ -41,8 +41,7 @@ export const createEmployee = (req: Request, res: Response) => {
     });
   }
 
-  const newId =
-    mockDataEmployee.employees[mockDataEmployee.employees.length - 1].id + 1;
+  const newId = mockDataEmployee.employees[mockDataEmployee.employees.length - 1].id + 1;
 
   const newEmpleado: Employee = {
     id: newId,
@@ -56,10 +55,17 @@ export const createEmployee = (req: Request, res: Response) => {
     city,
     maritalStatus,
     phoneNumber,
-    education,
+    education: {
+      ...education,
+      endDate: new Date(education.endDate)
+    },
     companyId,
     contact,
-    contract,
+    contract: contract.map(cont => ({
+      ...cont,
+      startDate: new Date(cont.startDate),
+      endDate: new Date(cont.endDate)
+    })),
   };
 
   mockDataEmployee.employees.push(newEmpleado);
@@ -99,9 +105,7 @@ export const updateEmployee = (req: Request, res: Response): void => {
   empleado.idCard = req.body.idCard ?? empleado.idCard;
   empleado.firstName = req.body.firstName ?? empleado.firstName;
   empleado.lastName = req.body.lastName ?? empleado.lastName;
-  empleado.dateOfBirth = req.body.dateOfBirth
-    ? new Date(req.body.dateOfBirth)
-    : empleado.dateOfBirth;
+  empleado.dateOfBirth = req.body.dateOfBirth ? new Date(req.body.dateOfBirth) : empleado.dateOfBirth;
   empleado.typeCard = req.body.typeCard ?? empleado.typeCard;
   empleado.address = req.body.address ?? empleado.address;
   empleado.city = req.body.city ?? empleado.city;

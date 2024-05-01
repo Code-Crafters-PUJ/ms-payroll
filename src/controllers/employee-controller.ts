@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { Employee } from "../interfaces/employee-interface";
 import { mockDataEmployee } from "../mockDataEmployee";
 
 export const createEmployee = (req: Request, res: Response) => {
@@ -17,7 +18,7 @@ export const createEmployee = (req: Request, res: Response) => {
     typeCard,
     maritalStatus,
     phoneNumber,
-  } = req.body;
+  } = req.body as Employee;
 
   if (
     !idCard ||
@@ -43,7 +44,7 @@ export const createEmployee = (req: Request, res: Response) => {
   const newId =
     mockDataEmployee.employees[mockDataEmployee.employees.length - 1].id + 1;
 
-  const newEmpleado = {
+  const newEmpleado: Employee = {
     id: newId,
     idCard,
     firstName,

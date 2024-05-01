@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { Payroll } from '../interfaces/payroll-interface';
 import { mockDataPayroll } from '../mockDataPayroll';
 
 let payrolls = mockDataPayroll.payrolls;
@@ -14,7 +15,7 @@ export const createPayroll = (req: Request, res: Response): void => {
     const { payrollName, month, year, totalIncome, totalDeductions, totalNet, employees } = req.body;
     const newId = getNextPayrollId();
 
-    const newPayroll = {
+    const newPayroll: Payroll = {
         id: newId,
         state: "En espera",
         liquidationType: "Mensual",

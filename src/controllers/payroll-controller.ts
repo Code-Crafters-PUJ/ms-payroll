@@ -49,38 +49,15 @@ export const getPayrollById = (req: Request, res: Response): void => {
 };
 
 export const updatePayroll = (req: Request, res: Response): void => {
-    const payroll = payrolls.find(p => p.id === req.params.id);
-    if (payroll) {
-        const { payrollName, month, year, totalIncome, totalDeductions, totalNet } = req.body;
-
-        payroll.payrollName = payrollName ?? payroll.payrollName;
-        payroll.month = month ?? payroll.month;
-        payroll.year = year ?? payroll.year;
-        payroll.totalIncome = totalIncome ?? payroll.totalIncome;
-        payroll.totalDeductions = totalDeductions ?? payroll.totalDeductions;
-        payroll.totalNet = totalNet ?? payroll.totalNet;
-
+    const payrollId = req.params.id;
+    const index = payrolls.findIndex(p => p.id === payrollId);
+    
+    if (index !== -1) {
+        payrolls[index].state = "Consolidado";
         res.status(200).send({
-            message: 'Payroll successfully updated',
-            payroll
+            message: 'Payroll state updated successfully',
+            updatedPayroll: payrolls[index]
         });
-    } else {
-        res.status(404).send({ message: 'Payroll not found' });
-    }
-};
-
-export const consolidatePayroll = (req: Request, res: Response): void => {
-    const payroll = payrolls.find(p => p.id === req.params.id);
-    if (payroll) {
-        if (payroll.state === "active") {
-            payroll.state = "consolidated";
-            res.status(200).send({
-                message: 'Payroll successfully consolidated',
-                payroll
-            });
-        } else {
-            res.status(400).send({ message: 'Payroll is not active and cannot be consolidated' });
-        }
     } else {
         res.status(404).send({ message: 'Payroll not found' });
     }

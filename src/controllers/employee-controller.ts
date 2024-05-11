@@ -21,20 +21,20 @@ export const createEmployee = (req: Request, res: Response) => {
   } = req.body as Employee;
 
   if (
-    !idCard ||
-    !firstName ||
-    !lastName ||
-    !dateOfBirth ||
-    !address ||
-    !city ||
-    !education ||
-    !companyId ||
-    !contact ||
-    !contract ||
-    !gender ||
-    !typeCard ||
-    !maritalStatus ||
-    !phoneNumber
+      !idCard ||
+      !firstName ||
+      !lastName ||
+      !dateOfBirth ||
+      !address ||
+      !city ||
+      !education || !education.endDate ||
+      !companyId ||
+      !contact ||
+      !contract || contract.some(c => !c.startDate || !c.endDate) ||
+      !gender ||
+      !typeCard ||
+      !maritalStatus ||
+      !phoneNumber
   ) {
     return res.status(400).send({
       message: "Error: Data is incomplete or incorrect",
@@ -42,7 +42,7 @@ export const createEmployee = (req: Request, res: Response) => {
   }
 
   const existingEmployee = mockDataEmployee.employees.find(
-    (employee) => employee.idCard === idCard
+      (employee) => employee.idCard === idCard
   );
 
   if (existingEmployee) {
@@ -51,9 +51,9 @@ export const createEmployee = (req: Request, res: Response) => {
     });
   }
 
-  const newId = mockDataEmployee.employees[mockDataEmployee.employees.length - 1].id + 1;
+  const newId = mockDataEmployee.employees.length > 0 ? mockDataEmployee.employees[mockDataEmployee.employees.length - 1].id + 1 : 1;
 
-  const newEmpleado: Employee = {
+  const newEmployee: Employee = {
     id: newId,
     idCard,
     firstName,
@@ -78,13 +78,12 @@ export const createEmployee = (req: Request, res: Response) => {
     })),
   };
 
-  mockDataEmployee.employees.push(newEmpleado);
+  mockDataEmployee.employees.push(newEmployee);
 
   res.status(201).send({
     message: "Employee successfully created",
   });
 };
-
 
 export const getAllEmployees = (req: Request, res: Response): void => {
   res.status(200).send(mockDataEmployee.employees);

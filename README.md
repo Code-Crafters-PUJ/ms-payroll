@@ -8,10 +8,12 @@ To do that:
 2. Then complete the environment variables with your own credentials.
 
 To run this ms:
+
 Install dependencies:
 ```bash
 npm install
 ```
+
 ```
 npm run dev
 ```
